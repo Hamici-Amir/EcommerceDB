@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
+    <header class="header" style="position: absolute;">
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
@@ -31,9 +31,17 @@
                         <!-- <a href="/index_ar.html" class="btn">عربية</a> -->
                     </li>
                     <li>
-                        <button class="admin-btn" id="admin-btn">
-                            <i class="fas fa-cog"></i> Admin
+                        <button class="admin-btn" id="loginBtn" onclick="openLoginModal()">
+                            <i class="fas fa-sign-in-alt"></i> Login
                         </button>
+                        <div class="admin-panel" id="adminPanel" style="display: none;">
+                            <button class="admin-btn" onclick="goToDashboard()">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </button>
+                            <button class="admin-btn" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
                     </li>
                 </ul>
                 <div class="hamburger">
@@ -48,7 +56,6 @@
     <main>
         <section class="hero" id="accueil">
     <div class="hero-slideshow">
-        <!-- Les images seront ajoutées dynamiquement par JavaScript -->
     </div>
     <div class="hero-content">
         <h1>Technologie Mobile</h1>
@@ -109,10 +116,9 @@
             <div class="container">
                 <h2>Nos Produits</h2>
                 <p class="subtitle">Découvrez notre sélection de téléphones et accessoires</p>
-                <div class="filter-tabs">
+                <div class="filter-tabs" id="filter-tabs">
                     <button class="filter-btn active" data-filter="all">Tous</button>
-                    <button class="filter-btn" data-filter="telephones">Téléphones</button>
-                    <button class="filter-btn" data-filter="accessoires">Accessoires</button>
+                    <!-- Les filtres de catégories seront chargés ici dynamiquement -->
                 </div>
                 <div class="product-grid" id="product-grid">
                     <!-- Les produits seront chargés ici dynamiquement -->
@@ -293,101 +299,21 @@
         </div>
     </div>
 
-    <!-- Formulaire d'administration -->
-    <div class="admin-overlay" id="admin-overlay">
-        <div class="admin-container">
-            <button class="close-admin" id="close-admin">
+    <!-- Admin Login Modal -->
+    <div class="admin-login-overlay" id="admin-login-overlay">
+        <div class="admin-login-container">
+            <button class="close-admin-login" id="close-admin-login" onclick="closeLoginModal()">
                 <i class="fas fa-times"></i>
             </button>
-            
-            <!-- Écran de connexion admin -->
-            <div class="admin-login" id="admin-login">
-                <h2>Accès Administration</h2>
-                <form id="admin-login-form">
-                    <div class="form-group">
-                        <label for="admin-password">Mot de passe :</label>
-                        <input type="password" id="admin-password" placeholder="Entrez le mot de passe" required>
-                    </div>
-                    <button type="submit" class="btn">Se connecter</button>
-                </form>
-            </div>
-            
-            <!-- Formulaire d'ajout de produit -->
-            <div class="admin-panel" id="admin-panel" style="display: none;">
-                <h2>Ajouter un Produit</h2>
-                <form id="add-product-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="product-title">Nom du produit (FR) :</label>
-                            <input type="text" id="product-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="product-title-ar">Nom du produit (AR) :</label>
-                            <input type="text" id="product-title-ar" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="product-price">Prix (DA) :</label>
-                            <input type="number" id="product-price" min="0" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="product-category">Catégorie :</label>
-                            <select id="product-category" required>
-                                <option value="">Sélectionner...</option>
-                                <option value="telephones">Téléphones</option>
-                                <option value="accessoires">Accessoires</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="product-brand">Marque :</label>
-                            <select id="product-brand" required>
-                                <option value="">Sélectionner...</option>
-                                <option value="condor">CONDOR</option>
-                                <option value="samsung">SAMSUNG</option>
-                                <option value="poco">POCO</option>
-                                <option value="itel">ITEL</option>
-                                <option value="realme">REALME</option>
-                                <option value="redmi">REDMI</option>
-                                <option value="vivo">VIVO</option>
-                                <option value="honor">HONOR</option>
-                                <option value="oppo">OPPO</option>
-                                <option value="ice">ICE</option>
-                                <option value="infinix">INFINIX</option>
-                                <option value="generic">Générique</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="product-image">URL de l'image :</label>
-                            <input type="url" id="product-image" placeholder="https://..." required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="product-description">Description (FR) :</label>
-                        <textarea id="product-description" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="product-description-ar">Description (AR) :</label>
-                        <textarea id="product-description-ar" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Ajouter le produit</button>
-                        <button type="button" class="btn btn-secondary" id="cancel-add">Annuler</button>
-                    </div>
-                </form>
-<div class="products-list" id="products-list">
-        <h2>Liste des Produits</h2>
-        <div class="admin-products-grid" id="admin-products-grid">
-            <!-- Les produits seront ajoutés dynamiquement ici -->
-        </div>
-            </div>
+            <h2>Connexion Admin</h2>
+            <form id="admin-login-form" onsubmit="event.preventDefault(); login();">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+            <div id="admin-login-message" style="margin-top: 15px;"></div>
         </div>
     </div>
     </div>
@@ -542,7 +468,41 @@ async function loadHomeCategories() {
         container.innerHTML = '<p>Erreur de chargement des catégories.</p>';
     }
 }
-document.addEventListener('DOMContentLoaded', loadHomeCategories);
+
+// Load and setup category filters
+async function loadCategoryFilters() {
+    const filterTabs = document.getElementById('filter-tabs');
+    if (!filterTabs) return;
+    
+    try {
+        const res = await fetch('/api/categories');
+        const categories = await res.json();
+        
+        // Keep the "Tous" button and add category filters
+        filterTabs.innerHTML = '<button class="filter-btn active" data-filter="all">Tous</button>';
+        
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'filter-btn';
+            button.setAttribute('data-filter', category.name);
+            button.textContent = category.name;
+            filterTabs.appendChild(button);
+        });
+        
+        // Add event listeners to all filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.getAttribute('data-filter');
+                loadHomeProducts(filter);
+            });
+        });
+    } catch (error) {
+        console.error('Error loading category filters:', error);
+    }
+}
 
 // Fetch and display products on the home page
 async function loadHomeProducts(filter = 'all') {
@@ -552,7 +512,7 @@ async function loadHomeProducts(filter = 'all') {
         const res = await fetch('/api/products');
         let products = await res.json();
         if (filter !== 'all') {
-            products = products.filter(p => p.category && p.category.name && p.category.name.toLowerCase() === filter);
+            products = products.filter(p => p.category && p.category.name && p.category.name.toLowerCase() === filter.toLowerCase());
         }
         if (products.length === 0) {
             grid.innerHTML = '<p>Aucun produit trouvé.</p>';
@@ -574,22 +534,229 @@ async function loadHomeProducts(filter = 'all') {
         grid.innerHTML = '<p>Erreur de chargement des produits.</p>';
     }
 }
-// Filter buttons
-const filterBtns = document.querySelectorAll('.filter-btn');
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        const filter = this.getAttribute('data-filter');
-        loadHomeProducts(filter);
-    });
-});
-document.addEventListener('DOMContentLoaded', () => loadHomeProducts('all'));
 
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    loadHomeCategories();
+    loadCategoryFilters();
+    loadHomeProducts('all');
+});
+
+// Global variables for admin session
+let adminSession = null;
+let csrfToken = null;
+
+// Check admin session on page load
+async function checkAdminSession() {
+    try {
+        const response = await fetch('/api/admin/check-session', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            adminSession = true;
+            csrfToken = data.csrfToken;
+            updateAdminPanelVisibility();
+        } else {
+            adminSession = false;
+            csrfToken = null;
+            updateAdminPanelVisibility();
+        }
+    } catch (error) {
+        console.error('Error checking admin session:', error);
+        adminSession = false;
+        csrfToken = null;
+        updateAdminPanelVisibility();
+    }
+}
+
+// Update admin panel visibility based on session status
+function updateAdminPanelVisibility() {
+    const adminPanel = document.getElementById('adminPanel');
+    const loginBtn = document.getElementById('loginBtn');
+    
+    if (adminSession) {
+        adminPanel.style.display = 'block';
+        loginBtn.style.display = 'none';
+    } else {
+        adminPanel.style.display = 'none';
+        loginBtn.style.display = 'block';
+    }
+}
+
+// Login function
+async function login() {
+    const password = document.getElementById('password').value;
+    
+    if (!password) {
+        alert('Please enter a password');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            adminSession = true;
+            csrfToken = data.csrfToken;
+            updateAdminPanelVisibility();
+            closeLoginModal();
+            document.getElementById('password').value = '';
+            alert('Login successful!');
+        } else {
+            alert(data.message || 'Login failed');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed. Please try again.');
+    }
+}
+
+// Logout function
+async function logout() {
+    try {
+        const response = await fetch('/api/admin/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            adminSession = false;
+            csrfToken = null;
+            updateAdminPanelVisibility();
+            alert('Logged out successfully');
+        } else {
+            alert('Logout failed');
+        }
+    } catch (error) {
+        console.error('Logout error:', error);
+        alert('Logout failed');
+    }
+}
+
+// Go to dashboard function
+function goToDashboard() {
+    if (adminSession) {
+        window.location.href = '/dashboard';
+    } else {
+        alert('Please login first');
+    }
+}
+
+// Open login modal
+function openLoginModal() {
+    document.getElementById('admin-login-overlay').classList.add('active');
+    document.getElementById('password').focus();
+}
+
+// Close login modal
+function closeLoginModal() {
+    document.getElementById('admin-login-overlay').classList.remove('active');
+    document.getElementById('password').value = '';
+    document.getElementById('admin-login-message').innerHTML = '';
+}
+
+// Initialize admin session check on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkAdminSession();
+    loadHomeCategories();
+    loadCategoryFilters();
+    loadHomeProducts('all');
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="main.js"></script>
 </body>
 </html>
+
+<style>
+.admin-login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.admin-login-overlay.active {
+    display: flex;
+}
+
+.admin-login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.close-admin-login {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-admin-login:hover {
+    color: #333;
+}
+
+.admin-login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.admin-panel {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-panel .admin-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    background: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.admin-panel .admin-btn:hover {
+    background: #e55a2b;
+}
+
+.admin-panel .admin-btn:last-child {
+    background: #dc3545;
+}
+
+.admin-panel .admin-btn:last-child:hover {
+    background: #c82333;
+}
+</style>
 

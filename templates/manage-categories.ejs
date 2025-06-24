@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer les Catégories - REEM MOBILE TECH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #ff6f16;
+            --secondary-color: #1e293b;
+            --accent-color: #ff6f16;
+            --light-color: #f8fafc;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --white: #fff;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+        }
+
+        .category-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .category-table th, .category-table td {
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            text-align: left;
+        }
+        .category-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-edit, .btn-delete {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-edit {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+        }
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 111, 22, 0.3);
+        }
+        .btn-delete {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+            color: var(--white);
+        }
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .edit-form {
+            display: none;
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            border: 1px solid #e5e7eb;
+            box-shadow: var(--shadow);
+        }
+        .edit-form.active {
+            display: block;
+        }
+        .edit-form h3 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="/">REEM MOBILE TECH</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="/manage-products"><i class="fas fa-box"></i> Gérer Produits</a></li>
+                    <li><a href="/manage-categories"><i class="fas fa-tags"></i> Gérer Catégories</a></li>
+                    <li><a href="/add-product"><i class="fas fa-plus"></i> Ajouter Produit</a></li>
+                    <li><a href="/add-category"><i class="fas fa-plus-circle"></i> Ajouter Catégorie</a></li>
+                    <li><a href="/"><i class="fas fa-external-link-alt"></i> Voir Site</a></li>
+                    <li><button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;"><i class="fas fa-sign-out-alt"></i> Déconnexion</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="about" style="padding-top: 60px;">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Gérer les Catégories</h2>
+                    <div id="categories-container">
+                        <table class="category-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categories-tbody">
+                                <!-- Categories will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Edit Form -->
+                    <div id="edit-form" class="edit-form">
+                        <h3>Modifier la Catégorie</h3>
+                        <form id="update-category-form">
+                            <input type="hidden" id="edit-id" name="id">
+                            <div class="form-group">
+                                <label for="edit-name">Nom de la catégorie</label>
+                                <input type="text" id="edit-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-description">Description</label>
+                                <textarea id="edit-description" name="description" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Mettre à jour</button>
+                            <button type="button" class="btn" onclick="cancelEdit()">Annuler</button>
+                        </form>
+                    </div>
+                    
+                    <div id="message" style="margin-top: 20px;"></div>
+                    <a href="/add-category" class="btn" style="margin-top: 20px; display: inline-block;">Ajouter une catégorie</a>
+                    <a href="/manage-products" class="btn" style="margin-top: 20px; display: inline-block;">Gérer les produits</a>
+                    <a href="/" class="btn" style="margin-top: 20px; display: inline-block;">Retour à l'accueil</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        let categories = [];
+        let adminSession = null;
+        let csrfToken = null;
+
+        // Check admin session on page load
+        async function checkAdminSession() {
+            try {
+                const response = await fetch('/api/admin/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    adminSession = true;
+                    csrfToken = data.csrfToken;
+                } else {
+                    // Redirect to home page if not authenticated
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Error checking admin session:', error);
+                window.location.href = '/';
+            }
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                const response = await fetch('/api/admin/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    alert('Logout failed');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Logout failed');
+            }
+        }
+
+        // Load categories
+        async function loadCategories() {
+            try {
+                const res = await fetch('/api/categories');
+                categories = await res.json();
+                displayCategories();
+            } catch (error) {
+                document.getElementById('message').innerHTML = '<span style="color:red;">Erreur de chargement des catégories</span>';
+            }
+        }
+
+        // Display categories in table
+        function displayCategories() {
+            const tbody = document.getElementById('categories-tbody');
+            tbody.innerHTML = categories.map(category => `
+                <tr>
+                    <td>${category.name}</td>
+                    <td>${category.description || ''}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editCategory('${category._id}')">Modifier</button>
+                            <button class="btn-delete" onclick="deleteCategory('${category._id}')">Supprimer</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Edit category
+        function editCategory(id) {
+            const category = categories.find(c => c._id === id);
+            if (category) {
+                document.getElementById('edit-id').value = category._id;
+                document.getElementById('edit-name').value = category.name;
+                document.getElementById('edit-description').value = category.description;
+                document.getElementById('edit-form').classList.add('active');
+            }
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            document.getElementById('edit-form').classList.remove('active');
+            document.getElementById('update-category-form').reset();
+        }
+
+        // Update category
+        document.getElementById('update-category-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const id = form.id.value;
+            const data = {
+                name: form.name.value,
+                description: form.description.value
+            };
+            
+            try {
+                const res = await fetch(`/api/categories/${id}`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    document.getElementById('message').innerHTML = '<span style="color:green;">Catégorie mise à jour avec succès !</span>';
+                    cancelEdit();
+                    loadCategories();
+                } else {
+                    document.getElementById('message').innerHTML = '<span style="color:red;">Erreur : ' + (result.message || 'Impossible de mettre à jour la catégorie') + '</span>';
+                }
+            } catch (error) {
+                document.getElementById('message').innerHTML = '<span style="color:red;">Erreur réseau</span>';
+            }
+        });
+
+        // Delete category
+        async function deleteCategory(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
+                try {
+                    const res = await fetch(`/api/categories/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-Token': csrfToken
+                        },
+                        credentials: 'include'
+                    });
+                    if (res.ok) {
+                        document.getElementById('message').innerHTML = '<span style="color:green;">Catégorie supprimée avec succès !</span>';
+                        loadCategories();
+                    } else {
+                        const result = await res.json();
+                        document.getElementById('message').innerHTML = '<span style="color:red;">Erreur : ' + (result.message || 'Impossible de supprimer la catégorie') + '</span>';
+                    }
+                } catch (error) {
+                    document.getElementById('message').innerHTML = '<span style="color:red;">Erreur réseau</span>';
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminSession();
+            loadCategories();
+        });
+    </script>
+</body>
+</html> 

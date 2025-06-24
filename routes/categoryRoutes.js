@@ -6,13 +6,14 @@ import {
   updateCategory,
   deleteCategory,
 } from "../controllers/categoryController.js";
+import { verifyCSRFToken } from "./adminRoutes.js";
 
 const router = express.Router();
 
 router.get("/", getAllCategories);
-router.post("/", createCategory);
+router.post("/", verifyCSRFToken, createCategory);
 router.get("/:id", getCategoryById);
-router.put("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
+router.put("/:id", verifyCSRFToken, updateCategory);
+router.delete("/:id", verifyCSRFToken, deleteCategory);
 
 export default router;

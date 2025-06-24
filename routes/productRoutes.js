@@ -6,13 +6,14 @@ import {
   updateProduct,
   deleteProduct,
 } from "../controllers/productController.js";
+import { verifyCSRFToken } from "./adminRoutes.js";
 
 const router = express.Router();
 
 router.get("/", getAllProducts);
-router.post("/", createProduct);
+router.post("/", verifyCSRFToken, createProduct);
 router.get("/:id", getProductById);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.put("/:id", verifyCSRFToken, updateProduct);
+router.delete("/:id", verifyCSRFToken, deleteProduct);
 
 export default router;

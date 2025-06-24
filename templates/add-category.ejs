@@ -13,6 +13,12 @@
                 <div class="logo">
                     <a href="/">REEM MOBILE TECH</a>
                 </div>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/manage-products">Gérer Produits</a></li>
+                    <li><a href="/manage-categories">Gérer Catégories</a></li>
+                    <li><button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Déconnexion</button></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -40,6 +46,56 @@
         </section>
     </main>
     <script>
+    // Global variables for admin session
+    let adminSession = null;
+    let csrfToken = null;
+
+    // Check admin session on page load
+    async function checkAdminSession() {
+        try {
+            const response = await fetch('/api/admin/check-session', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                adminSession = true;
+                csrfToken = data.csrfToken;
+            } else {
+                // Redirect to home page if not authenticated
+                window.location.href = '/';
+            }
+        } catch (error) {
+            console.error('Error checking admin session:', error);
+            window.location.href = '/';
+        }
+    }
+
+    // Logout function
+    async function logout() {
+        try {
+            const response = await fetch('/api/admin/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                window.location.href = '/';
+            } else {
+                alert('Logout failed');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+            alert('Logout failed');
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAdminSession();
+    });
+
     document.getElementById('add-category-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
@@ -50,7 +106,11 @@
         try {
             const res = await fetch('/api/categories', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': csrfToken
+                },
+                credentials: 'include',
                 body: JSON.stringify(data)
             });
             const result = await res.json();

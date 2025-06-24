@@ -81,24 +81,6 @@ git commit -m "Clean .env and node_modules from Git and update .gitignore"
 
 ---
 
-## 📂 Project Structure (Example)
-
-```
-├── server.js
-├── routes/
-│   └── api.js
-├── models/
-│   └── User.js
-├── controllers/
-│   └── authController.js
-├── .env
-├── .gitignore
-├── package.json
-└── README.md
-```
-
----
-
 ## 📜 License
 
 This project is licensed under the **MIT License**.

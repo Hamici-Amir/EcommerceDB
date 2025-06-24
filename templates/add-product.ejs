@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Produit - REEM MOBILE TECH</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="/">REEM MOBILE TECH</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="about" style="padding-top: 60px;">
+            <div class="container">
+                <div class="about-content" style="max-width: 600px; margin: 0 auto;">
+                    <h2>Ajouter un Produit</h2>
+                    <form id="add-product-form">
+                        <div class="form-group">
+                            <label for="name">Nom du produit</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Prix (DA)</label>
+                            <input type="number" id="price" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Catégorie</label>
+                            <select id="category" name="category" required>
+                                <option value="">Chargement...</option>
+                            </select>
+                            <div id="no-categories-message" style="color:red; display:none; margin-top:8px;">
+                                Aucune catégorie trouvée. <a href="/add-category">Créer une catégorie</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Stock</label>
+                            <input type="number" id="stock" name="stock" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image (URL)</label>
+                            <input type="text" id="image" name="image" required>
+                        </div>
+                        <button type="submit" class="btn">Ajouter</button>
+                    </form>
+                    <div id="form-message" style="margin-top: 20px;"></div>
+                    <a href="/" class="btn" style="margin-top: 20px; display: inline-block;">Retour à l'accueil</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+    // Fetch categories and populate dropdown
+    async function loadCategories() {
+        const select = document.getElementById('category');
+        const msg = document.getElementById('no-categories-message');
+        try {
+            const res = await fetch('/api/categories');
+            const categories = await res.json();
+            select.innerHTML = '';
+            if (categories.length === 0) {
+                select.innerHTML = '<option value="">Aucune catégorie</option>';
+                msg.style.display = 'block';
+            } else {
+                msg.style.display = 'none';
+                select.innerHTML = '<option value="">Sélectionnez...</option>' +
+                    categories.map(cat => `<option value="${cat._id}">${cat.name}</option>`).join('');
+            }
+        } catch (e) {
+            select.innerHTML = '<option value="">Erreur de chargement</option>';
+            msg.style.display = 'block';
+        }
+    }
+    document.addEventListener('DOMContentLoaded', loadCategories);
+    document.getElementById('add-product-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+            name: form.name.value,
+            description: form.description.value,
+            price: Number(form.price.value),
+            category: form.category.value,
+            stock: Number(form.stock.value),
+            image: form.image.value
+        };
+        try {
+            const res = await fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            if (res.ok) {
+                document.getElementById('form-message').innerHTML = '<span style="color:green;">Produit ajouté avec succès !</span>';
+                form.reset();
+            } else {
+                document.getElementById('form-message').innerHTML = '<span style="color:red;">Erreur : ' + (result.message || 'Impossible d\'ajouter le produit') + (result.error ? '<br>' + result.error : '') + '</span>';
+            }
+        } catch (error) {
+            document.getElementById('form-message').innerHTML = '<span style="color:red;">Erreur réseau</span>';
+        }
+    });
+    </script>
+</body>
+</html> 

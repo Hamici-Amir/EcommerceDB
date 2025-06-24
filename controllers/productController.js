@@ -6,9 +6,13 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const newProduct = new Product(req.body);
-  const saved = await newProduct.save();
-  res.status(201).json(saved);
+  try {
+    const newProduct = new Product(req.body);
+    const saved = await newProduct.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    res.status(400).json({ message: "Failed to create product", error: error.message });
+  }
 };
 
 export const getProductById = async (req, res) => {

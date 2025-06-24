@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEM MOBILE TECH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+  <link rel="shortcut icon" href="/Orange Simple Clean Smartphone Repair and Service Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <a href="#">REEM MOBILE TECH</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#produits">Nos Produits</a></li>
+                    <li><a href="#apropos">À Propos</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="#" class="cart-icon" id="cart-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <a href="/index_ar.html" class="btn">عربية</a> -->
+                    </li>
+                    <li>
+                        <button class="admin-btn" id="admin-btn">
+                            <i class="fas fa-cog"></i> Admin
+                        </button>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="accueil">
+    <div class="hero-slideshow">
+        <!-- Les images seront ajoutées dynamiquement par JavaScript -->
+    </div>
+    <div class="hero-content">
+        <h1>Technologie Mobile</h1>
+        <p>Découvrez notre collection exclusive de téléphones mobiles et accessoires de qualité</p>
+        <a href="#produits" class="btn">Voir nos produits</a>
+    </div>
+</section>
+
+        <section class="features">
+            <div class="container">
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Dernières Technologies</h3>
+                    <p>Les smartphones les plus récents avec les dernières innovations</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Garantie Officielle</h3>
+                    <p>Tous nos produits sont garantis et authentiques</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Livraison Rapide</h3>
+                    <p>Expédition sous 48h dans toute l'Algérie</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories" id="categories">
+            <div class="container">
+                <h2>Nos Catégories</h2>
+                <div id="category-list" class="category-grid">
+                    <!-- Les catégories seront chargées ici dynamiquement -->
+                </div>
+            </div>
+        </section>
+
+        <section class="brands" id="marques">
+            <div class="container">
+                <h2>Nos Marques</h2>
+                <div class="brands-grid">
+                    <div class="brand-item" data-brand="condor">CONDOR</div>
+                    <div class="brand-item" data-brand="samsung">SAMSUNG</div>
+                    <div class="brand-item" data-brand="poco">POCO</div>
+                    <div class="brand-item" data-brand="itel">ITEL</div>
+                    <div class="brand-item" data-brand="realme">REALME</div>
+                    <div class="brand-item" data-brand="redmi">REDMI</div>
+                    <div class="brand-item" data-brand="vivo">VIVO</div>
+                    <div class="brand-item" data-brand="honor">HONOR</div>
+                    <div class="brand-item" data-brand="oppo">OPPO</div>
+                    <div class="brand-item" data-brand="ice">ICE</div>
+                    <div class="brand-item" data-brand="infinix">INFINIX</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="products" id="produits">
+            <div class="container">
+                <h2>Nos Produits</h2>
+                <p class="subtitle">Découvrez notre sélection de téléphones et accessoires</p>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="telephones">Téléphones</button>
+                    <button class="filter-btn" data-filter="accessoires">Accessoires</button>
+                </div>
+                <div class="product-grid" id="product-grid">
+                    <!-- Les produits seront chargés ici dynamiquement -->
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="apropos">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Notre Histoire</h2>
+                    <p>REEM MOBILE TECH est votre partenaire de confiance pour tous vos besoins en technologie mobile. Nous proposons une large gamme de smartphones et d'accessoires des meilleures marques.</p>
+                    <p>Notre équipe d'experts vous accompagne dans le choix du produit qui correspond parfaitement à vos besoins et votre budget.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/Orange Simple Clean Smartphone Repair and Service Logo.png" alt="Accessoires mobiles">
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2>Témoignages</h2>
+                <div class="testimonial">
+                    <p>"Excellent service et produits de qualité. Mon nouveau smartphone fonctionne parfaitement!"</p>
+                    <div class="author">- Amine L.</div>
+                </div>
+                <div class="testimonial">
+                    <p>"Livraison rapide et prix compétitifs. Je recommande vivement REEM MOBILE TECH."</p>
+                    <div class="author">- Salem H.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contactez-nous</h2>
+               <form class="contact-form" action="https://formspree.io/f/xxxxx" method="POST">
+    <input type="text" name="name" placeholder="Votre nom" required>
+    <input type="tel" id="phone" name="phone" placeholder="Votre Téléphone" required>
+    <textarea name="message" placeholder="Votre message" required></textarea>
+    <button type="submit" class="btn">Envoyer</button>
+</form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Panier latéral -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart" id="cart">
+            <button class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Votre Panier</h2>
+            <div class="cart-content" id="cart-content">
+                <!-- Contenu du panier ajouté dynamiquement -->
+                <p class="empty-cart">Votre panier est vide</p>
+            </div>
+            <div class="cart-total">
+                <h3>Total: <span id="cart-total">0.00</span> </h3>
+                <button class="btn checkout-btn" id="checkout-btn">Passer la commande</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulaire de commande -->
+    <div class="checkout-overlay" id="checkout-overlay">
+        <div class="checkout-form-container">
+            <button class="close-checkout" id="close-checkout">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Informations de Livraison</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="name">Nom Complet*</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone*</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse*</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville*</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Wilaya*</label>
+                    <select id="country" name="country" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="Adrar">Adrar</option>
+<option value="Chlef">Chlef</option>
+<option value="Laghouat">Laghouat</option>
+<option value="Oum El Bouaghi">Oum El Bouaghi</option>
+<option value="Batna">Batna</option>
+<option value="Béjaïa">Béjaïa</option>
+<option value="Biskra">Biskra</option>
+<option value="Béchar">Béchar</option>
+<option value="Blida">Blida</option>
+<option value="Bouira">Bouira</option>
+<option value="Tamanrasset">Tamanrasset</option>
+<option value="Tébessa">Tébessa</option>
+<option value="Tlemcen">Tlemcen</option>
+<option value="Tiaret">Tiaret</option>
+<option value="Tizi Ouzou">Tizi Ouzou</option>
+<option value="Alger">Alger</option>
+<option value="Djelfa">Djelfa</option>
+<option value="Jijel">Jijel</option>
+<option value="Sétif">Sétif</option>
+<option value="Saïda">Saïda</option>
+<option value="Skikda">Skikda</option>
+<option value="Sidi Bel Abbès">Sidi Bel Abbès</option>
+<option value="Annaba">Annaba</option>
+<option value="Guelma">Guelma</option>
+<option value="Constantine">Constantine</option>
+<option value="Médéa">Médéa</option>
+<option value="Mostaganem">Mostaganem</option>
+<option value="M'Sila">M'Sila</option>
+<option value="Mascara">Mascara</option>
+<option value="Ouargla">Ouargla</option>
+<option value="Oran">Oran</option>
+<option value="El Bayadh">El Bayadh</option>
+<option value="Illizi">Illizi</option>
+<option value="Bordj Bou Arreridj">Bordj Bou Arreridj</option>
+<option value="Boumerdès">Boumerdès</option>
+<option value="El Tarf">El Tarf</option>
+<option value="Tindouf">Tindouf</option>
+<option value="Tissemsilt">Tissemsilt</option>
+<option value="El Oued">El Oued</option>
+<option value="Khenchela">Khenchela</option>
+<option value="Souk Ahras">Souk Ahras</option>
+<option value="Tipaza">Tipaza</option>
+<option value="Mila">Mila</option>
+<option value="Aïn Defla">Aïn Defla</option>
+<option value="Naâma">Naâma</option>
+<option value="Aïn Témouchent">Aïn Témouchent</option>
+<option value="Ghardaïa">Ghardaïa</option>
+<option value="Relizane">Relizane</option>
+<option value="Timimoun">Timimoun</option>
+<option value="Bordj Badji Mokhtar">Bordj Badji Mokhtar</option>
+<option value="Ouled Djellal">Ouled Djellal</option>
+<option value="Béni Abbès">Béni Abbès</option>
+<option value="In Salah">In Salah</option>
+<option value="In Guezzam">In Guezzam</option>
+<option value="Touggourt">Touggourt</option>
+<option value="Djanet">Djanet</option>
+<option value="El M'Ghair">El M'Ghair</option>
+<option value="El Meniaa">El Meniaa</option>
+                    </select>
+                </div>
+                
+                <div class="order-summary">
+                    <h3>Récapitulatif de la Commande</h3>
+                    <div id="order-items">
+                        <!-- Articles ajoutés dynamiquement -->
+                    </div>
+                    <div class="order-totals">
+                        <div class="subtotal">
+                            <span>Sous-total:</span>
+                            <span id="order-subtotal">0.00 DA</span>
+                        </div>
+                        <div class="shipping">
+                            <span>Livraison:</span>
+                            <span id="order-shipping">500.00 DA</span>
+                        </div>
+                        <div for="total" class="total">
+                            <span>Total:</span>
+                            <span id="order-total">500.00 DA</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="submit-btn" type="submit" class="btn submit-order">Confirmer la commande via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Formulaire d'administration -->
+    <div class="admin-overlay" id="admin-overlay">
+        <div class="admin-container">
+            <button class="close-admin" id="close-admin">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Écran de connexion admin -->
+            <div class="admin-login" id="admin-login">
+                <h2>Accès Administration</h2>
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-password">Mot de passe :</label>
+                        <input type="password" id="admin-password" placeholder="Entrez le mot de passe" required>
+                    </div>
+                    <button type="submit" class="btn">Se connecter</button>
+                </form>
+            </div>
+            
+            <!-- Formulaire d'ajout de produit -->
+            <div class="admin-panel" id="admin-panel" style="display: none;">
+                <h2>Ajouter un Produit</h2>
+                <form id="add-product-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-title">Nom du produit (FR) :</label>
+                            <input type="text" id="product-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-title-ar">Nom du produit (AR) :</label>
+                            <input type="text" id="product-title-ar" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-price">Prix (DA) :</label>
+                            <input type="number" id="product-price" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Catégorie :</label>
+                            <select id="product-category" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="telephones">Téléphones</option>
+                                <option value="accessoires">Accessoires</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-brand">Marque :</label>
+                            <select id="product-brand" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="condor">CONDOR</option>
+                                <option value="samsung">SAMSUNG</option>
+                                <option value="poco">POCO</option>
+                                <option value="itel">ITEL</option>
+                                <option value="realme">REALME</option>
+                                <option value="redmi">REDMI</option>
+                                <option value="vivo">VIVO</option>
+                                <option value="honor">HONOR</option>
+                                <option value="oppo">OPPO</option>
+                                <option value="ice">ICE</option>
+                                <option value="infinix">INFINIX</option>
+                                <option value="generic">Générique</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image">URL de l'image :</label>
+                            <input type="url" id="product-image" placeholder="https://..." required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-description">Description (FR) :</label>
+                        <textarea id="product-description" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-description-ar">Description (AR) :</label>
+                        <textarea id="product-description-ar" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Ajouter le produit</button>
+                        <button type="button" class="btn btn-secondary" id="cancel-add">Annuler</button>
+                    </div>
+                </form>
+<div class="products-list" id="products-list">
+        <h2>Liste des Produits</h2>
+        <div class="admin-products-grid" id="admin-products-grid">
+            <!-- Les produits seront ajoutés dynamiquement ici -->
+        </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- Section Logo -->
+            <div class="footer-section logo-section">
+                <img src="./Orange Simple Clean Smartphone Repair and Service Logo.png" alt="Logo REEM MOBILE TECH" class="footer-logo">
+            </div>
+
+            <div class="footer-section">
+                <h3>REEM MOBILE TECH</h3>
+                <p>Votre partenaire technologie mobile de confiance.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Liens Utiles</h3>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#produits">Nos Produits</a></li>
+                    <li><a href="#contact">Garantie et SAV</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+    <h3>Contact</h3>
+    <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Alger, Algérie</li>
+        <li><i class="fas fa-phone"></i>+213 673 96 55 16</li>
+        <li><i class="fas fa-envelope"></i>contact@reemmobiletech.com</li>
+    </ul>
+
+    <h3>Suivez-nous</h3>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 REEM MOBILE TECH. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+<div id="image-lightbox" class="lightbox" style="display:none;">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" src="" alt="Aperçu du produit">
+</div>
+
+<script>
+document.getElementById("checkout-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Données client
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const wilaya = document.getElementById("country").value.trim();
+
+    // Montants
+    const subtotal = document.getElementById("order-subtotal").innerText.trim();
+    const shipping = document.getElementById("order-shipping").innerText.trim();
+    const total = document.getElementById("order-total").innerText.trim();
+
+    // Produits ajoutés dynamiquement depuis localStorage
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let productList = "";
+    cart.forEach((item, i) => {
+        productList += `\n🛒 Produit ${i + 1} : ${item.title || item.title_ar || item.name}
+Prix : ${item.price} DA
+Image : ${item.image || ""}\n`;
+    });
+
+    // Message WhatsApp
+    const message = `
+📦 Nouvelle commande REEM MOBILE TECH !
+
+👤 Nom : ${name}
+📞 Téléphone : ${phone}
+📍 Adresse : ${address}
+🏙️ Ville : ${city}
+🏘️ Wilaya : ${wilaya}
+
+🛍️ Commande :
+${productList}
+
+📊 Récapitulatif :
+Sous-total : ${subtotal}
+Livraison : ${shipping}
+Total à payer : ${total}
+
+Merci pour votre confiance ! 📱
+`;
+
+    const numeroWhatsApp = "213673965516";
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    document.body.addEventListener("click", function (e) {
+        if (e.target.matches(".product-card img")) {
+            lightboxImg.src = e.target.src;
+            lightbox.style.display = "flex";
+        }
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+        lightboxImg.src = "";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = "none";
+            lightboxImg.src = "";
+        }
+    });
+});
+
+// Fetch and display categories on the home page
+async function loadHomeCategories() {
+    const container = document.getElementById('category-list');
+    if (!container) return;
+    try {
+        const res = await fetch('/api/categories');
+        const categories = await res.json();
+        if (categories.length === 0) {
+            container.innerHTML = '<p>Aucune catégorie trouvée.</p>';
+        } else {
+            container.innerHTML = categories.map(cat => `
+                <div class="category-card" data-category="${cat._id}">
+                    <div class="category-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <h3>${cat.name}</h3>
+                    <p>${cat.description || ''}</p>
+                </div>
+            `).join('');
+        }
+    } catch (e) {
+        container.innerHTML = '<p>Erreur de chargement des catégories.</p>';
+    }
+}
+document.addEventListener('DOMContentLoaded', loadHomeCategories);
+
+// Fetch and display products on the home page
+async function loadHomeProducts(filter = 'all') {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    try {
+        const res = await fetch('/api/products');
+        let products = await res.json();
+        if (filter !== 'all') {
+            products = products.filter(p => p.category && p.category.name && p.category.name.toLowerCase() === filter);
+        }
+        if (products.length === 0) {
+            grid.innerHTML = '<p>Aucun produit trouvé.</p>';
+        } else {
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image || ''}" alt="${product.name}" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">${product.price ? product.price.toLocaleString() : ''} DA</p>
+                        <button class="add-to-cart" data-id="${product._id}">Ajouter au panier</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    } catch (e) {
+        grid.innerHTML = '<p>Erreur de chargement des produits.</p>';
+    }
+}
+// Filter buttons
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.getAttribute('data-filter');
+        loadHomeProducts(filter);
+    });
+});
+document.addEventListener('DOMContentLoaded', () => loadHomeProducts('all'));
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="main.js"></script>
+</body>
+</html>
+

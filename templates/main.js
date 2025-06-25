@@ -528,7 +528,7 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
     // Diminuer la quantité
     function decreaseQuantity(e) {
         const productId = e.target.getAttribute("data-id");
-        const item = cart.find(item => item.id === productId);
+        const item = cart.find(item => item._id === productId);
         
         if (item.quantity > 1) {
             item.quantity -= 1;
@@ -550,10 +550,10 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
     // Supprimer un article avec confirmation
     function removeItem(e) {
         const productId = e.target.getAttribute("data-id");
-        const item = cart.find(item => item.id === productId);
+        const item = cart.find(item => item._id === productId);
         
-        if (confirm(`Êtes-vous sûr de vouloir supprimer "${item.title}" du panier ?`)) {
-            cart = cart.filter(item => item.id !== productId);
+        if (confirm(`Êtes-vous sûr de vouloir supprimer "${item.name}" du panier ?`)) {
+            cart = cart.filter(item => item._id !== productId);
             updateCart();
             showNotification("Produit supprimé du panier", "error");
         }

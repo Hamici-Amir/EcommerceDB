@@ -28,166 +28,34 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let nextProductId = 16; // ID pour les nouveaux produits
+    let products = []; // Initialize as empty array - will be populated from API
     
     // Mot de passe admin (en production, ceci devrait être sécurisé côté serveur)
     const ADMIN_PASSWORD = "admin123";
     
-    // Produits pour téléphones et accessoires avec URLs d'images en ligne
-    let products = [
-        // Téléphones
-        {
-            id: 1,
-            title: "Samsung Galaxy A54 5G",
-            price: 45000,
-            image: "https://images.samsung.com/is/image/samsung/p6pim/ae_ar/sm-a546elgdmea/gallery/ae-ar-galaxy-a54-5g-sm-a546-sm-a546elgdmea-thumb-535790255?$480_480_PNG$",
-            category: "telephones",
-            brand: "samsung",
-            description_fr: "Smartphone Samsung avec écran Super AMOLED 6.4 pouces et caméra 50MP.",
-            description_ar: "هاتف ذكي من سامسونغ بشاشة Super AMOLED 6.4 بوصة وكاميرا 50 ميجابكسل."
-        },
-        {
-            id: 2,
-            title: "POCO X5 Pro 5G",
-            price: 38000,
-            image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5RftcOj7TttFDyzhtnXWLMJsj8UeEC4TXHQlGxWObcpIP33Zs6xg_w-THDX58IT45mfH86l_zNH2rL3B21bbMz5pr3P4JnSJd-9TGJ_3B-aFc64dpEsCYD5jw5kFVUNvvgaX8iJFxaJG8MuRwQnaN_VMhDQy3eMK4muMkQDoqkpS27g8INPz-U1-2/s1920/x5%20pro%205g0000.png",
-            category: "telephones",
-            brand: "poco",
-            description_fr: "Smartphone gaming avec processeur Snapdragon 778G et écran 120Hz.",
-            description_ar: "هاتف ذكي للألعاب بمعالج Snapdragon 778G وشاشة 120Hz."
-        },
-        {
-            id: 3,
-            title: "Redmi Note 12 Pro",
-            price: 32000,
-            image: "https://iphoneprixalgerie.com/img/product/13/main.jpg",
-            category: "telephones",
-            brand: "redmi",
-            description_fr: "Smartphone avec caméra 108MP et charge rapide 67W.",
-            description_ar: "هاتف ذكي بكاميرا 108 ميجابكسل وشحن سريع 67 واط."
-        },
-        {
-            id: 4,
-            title: "OPPO Reno 8T",
-            price: 42000,
-            image: "https://www.greentelcom.ph/wp-content/uploads/2023/11/phone-template-13.png",
-            category: "telephones",
-            brand: "oppo",
-            description_fr: "Design élégant avec caméra portrait 2MP et écran AMOLED.",
-            description_ar: "تصميم أنيق بكاميرا بورتريه 2 ميجابكسل وشاشة AMOLED."
-        },
-        {
-            id: 5,
-            title: "Vivo Y36",
-            price: 28000,
-            image: "https://www.almumtaz.com.pk/wp-content/uploads/2024/03/Vivo-Y36-256GB-Built-in-8GB-RAM-5.webp",
-            category: "telephones",
-            brand: "vivo",
-            description_fr: "Smartphone avec batterie 5000mAh et design moderne.",
-            description_ar: "هاتف ذكي ببطارية 5000 مللي أمبير وتصميم عصري."
-        },
-        {
-            id: 6,
-            title: "Honor X9a",
-            price: 39000,
-            image: "https://majidmobileshop.com/wp-content/uploads/2023/05/HONOR-X9a.webp",
-            category: "telephones",
-            brand: "honor",
-            description_fr: "Écran incurvé 6.67 pouces avec caméra 64MP.",
-            description_ar: "شاشة منحنية 6.67 بوصة مع كاميرا 64 ميجابكسل."
-        },
-        {
-            id: 7,
-            title: "Realme 11 Pro",
-            price: 35000,
-            image: "https://brothers-phone.com/wp-content/uploads/2024/11/Images-site-8.png",
-            category: "telephones",
-            brand: "realme",
-            description_fr: "Performance élevée avec MediaTek Dimensity 7050.",
-            description_ar: "أداء عالي مع MediaTek Dimensity 7050."
-        },
-        {
-            id: 8,
-            title: "Infinix Note 30 VIP",
-            price: 30000,
-            image: "https://global.pro.infinixmobility.com/media/wysiwyg/X6710_NOTE_30_VIP_Racing_Edition_base4_family_series.png",
-            category: "telephones",
-            brand: "infinix",
-            description_fr: "Charge sans fil 68W et écran AMOLED 120Hz.",
-            description_ar: "شحن لاسلكي 68 واط وشاشة AMOLED 120Hz."
-        },
-        
-        // Accessoires
-        {
-            id: 9,
-            title: "Écouteurs sans fil HOCO EQ1",
-            price: 3500,
-            image: "https://www.hoco-algerie.com/wp-content/uploads/2024/01/Hd5151e24c4ba4b4ca950f594b7b4efeca.webp",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Écouteurs sans fil avec réduction de bruit active.",
-            description_ar: "سماعات لاسلكية مع إلغاء الضوضاء النشط."
-        },
-        {
-            id: 10,
-            title: "Chargeur USB-C 65W - Samsung - Amento - Charge rapide - Adaptateur Trio - Noir - Cdiscount Téléphonie",
-            price: 2800,
-            image: "https://www.cdiscount.com/pdt2/2/2/3/1/700x700/rnc1703296514223/rw/samsung-65w-amento-super-fast-chargeur-usb-c-pour.jpg",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Chargeur USB-C compatible avec la plupart des smartphones.",
-            description_ar: "شاحن USB-C متوافق مع معظم الهواتف الذكية."
-        },
-        {
-            id: 11,
-            title: "3x Protection écran 9H + 1x Coque iPhone Pro 15 transparente",
-            price: 1200,
-            image: "https://res.cloudinary.com/subtel/image/upload/h_700/q_auto:low,f_auto/b5jp23tlosxdetcmjfdz.jpg",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Protection anti-choc avec design transparent.",
-            description_ar: "حماية ضد الصدمات بتصميم شفاف."
-        },
-        {
-            id: 12,
-            title: "Pack protection coque transparente+verre trempé pour Samsung Galaxy A14 4G/5G",
-            price: 1800,
-            image: "https://www.metronic.com/29999-large_default/pack-protection-coque-transparenteverre-trempe-pour-samsung-galaxy-a14-4g-5g.jpg",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Support magnétique 360° pour tableau de bord.",
-            description_ar: "حامل مغناطيسي 360 درجة للوحة القيادة."
-        },
-        {
-            id: 13,
-            title: "Powerbank 20000mAh HOCO J87A Noir",
-            price: 4200,
-            image: "https://dz.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/28/7245/1.jpg?7747",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Batterie externe avec charge rapide et affichage LED.",
-            description_ar: "بطارية خارجية مع شحن سريع وشاشة LED."
-        },
-        {
-            id: 14,
-            title: "Câble USB-C Hoco X50",
-            price: 800,
-            image: "https://hozsklad.ua/images/products/MIA-6931474734235_2.jpg",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Câble renforcé 2 mètres avec connecteurs dorés.",
-            description_ar: "كابل معزز 2 متر مع موصلات ذهبية."
-        },
-        {
-            id: 15,
-            title: "Verre Trempé 9H",
-            price: 600,
-            image: "https://www.piecetelephone.fr/4550-large_default/verre-trempe-9h-pour-iphone-44s.jpg",
-            category: "accessoires",
-            brand: "generic",
-            description_fr: "Protection d'écran ultra-résistante avec installation facile.",
-            description_ar: "حماية شاشة فائقة المقاومة مع تركيب سهل."
+    // Fetch products from API
+    async function fetchProducts() {
+        try {
+            const response = await fetch('/api/products');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            products = data;
+            console.log('Products loaded from API:', products.length);
+            
+            // Initialize the page after products are loaded
+            displayProducts();
+            updateCart();
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            showNotification('Erreur lors du chargement des produits', 'error');
+            
+            // Fallback: use empty array or show error message
+            products = [];
+            displayProducts();
         }
-    ];
+    }
 
     // Images pour le slideshow hero avec URLs en ligne
     const heroImages = [
@@ -240,13 +108,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const productElement = document.createElement('div');
         productElement.className = 'admin-product-card';
         productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.title}" class="admin-product-image">
-            <h3 class="admin-product-title">${product.title}</h3>
+            <img src="${product.image}" alt="${product.name}" class="admin-product-image">
+            <h3 class="admin-product-title">${product.name}</h3>
             <p class="admin-product-price">${product.price.toLocaleString()} DA</p>
             <span class="admin-product-category">${product.category === 'telephones' ? 'Téléphone' : 'Accessoire'}</span>
             <div class="admin-product-actions">
-                <button class="btn-edit" data-id="${product.id}">Modifier</button>
-                <button class="btn-delete" data-id="${product.id}">Supprimer</button>
+                <button class="btn-edit" data-id="${product._id}">Modifier</button>
+                <button class="btn-delete" data-id="${product._id}">Supprimer</button>
             </div>
         `;
         adminProductsGrid.appendChild(productElement);
@@ -265,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Fonction pour supprimer un produit
 function deleteProduct(e) {
-    const productId = parseInt(e.target.getAttribute('data-id'));
+    const productId = e.target.getAttribute('data-id');
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
         products = products.filter(p => p.id !== productId);
         displayAdminProducts();
@@ -276,7 +144,7 @@ function deleteProduct(e) {
 
 // Fonction pour modifier un produit
 function editProduct(e) {
-    const productId = parseInt(e.target.getAttribute('data-id'));
+    const productId = e.target.getAttribute('data-id');
     const product = products.find(p => p.id === productId);
     
     if (product) {
@@ -459,21 +327,30 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
 
     // Afficher les produits
     function displayProducts(productsToShow = products) {
+        if (!productGrid) return;
+        
         productGrid.innerHTML = "";
+        
+        // Show loading message if no products
+        if (productsToShow.length === 0) {
+            productGrid.innerHTML = '<div class="loading-message">Chargement des produits...</div>';
+            return;
+        }
+        
         productsToShow.forEach(product => {
             const productElement = document.createElement("div");
             productElement.classList.add("product-card");
             productElement.setAttribute("data-category", product.category);
             productElement.setAttribute("data-brand", product.brand);
-            
+
             productElement.innerHTML = `
                 <div class="product-image">
-                    <img src="${product.image}" alt="${product.title}" loading="lazy">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-title">${product.title}</h3>
+                    <h3 class="product-title">${product.name}</h3>
                     <p class="product-price">${product.price.toLocaleString()} DA</p>
-                    <button class="add-to-cart" data-id="${product.id}">Ajouter au panier</button>
+                    <button class="add-to-cart" data-id="${product._id}">Ajouter au panier</button>
                 </div>
             `;
             productGrid.appendChild(productElement);
@@ -530,8 +407,14 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
     
     // Ajouter au panier
     function addToCart(e) {
-        const productId = parseInt(e.target.getAttribute("data-id"));
-        const product = products.find(p => p.id === productId);
+        const productId = e.target.getAttribute("data-id");
+        const product = products.find(p => p._id === productId);
+        console.log('Adding', productId);
+        if (!product) {
+            showNotification("Produit non trouvé", "error");
+            return;
+        }
+        
         const existingItem = cart.find(item => item.id === productId);
         
         if (existingItem) {
@@ -609,18 +492,18 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
             const cartItem = document.createElement("div");
             cartItem.classList.add("cart-item");
             cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.title}" class="cart-item-img" loading="lazy">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img" loading="lazy">
                 <div class="cart-item-details">
-                    <h4 class="cart-item-title">${item.title}</h4>
+                    <h4 class="cart-item-title">${item.name}</h4>
                     <p class="cart-item-price">${item.price.toLocaleString()} DA</p>
                     <div class="cart-item-actions">
-                        <button class="cart-item-remove" data-id="${item.id}" title="Supprimer du panier">
+                        <button class="cart-item-remove" data-id="${item._id}" title="Supprimer du panier">
                             <i class="fas fa-trash"></i> Supprimer
                         </button>
                         <div class="cart-item-quantity">
-                            <button class="quantity-btn minus" data-id="${item.id}" title="Diminuer la quantité">-</button>
+                            <button class="quantity-btn minus" data-id="${item._id}" title="Diminuer la quantité">-</button>
                             <span class="quantity">${item.quantity}</span>
-                            <button class="quantity-btn plus" data-id="${item.id}" title="Augmenter la quantité">+</button>
+                            <button class="quantity-btn plus" data-id="${item._id}" title="Augmenter la quantité">+</button>
                         </div>
                     </div>
                 </div>
@@ -644,7 +527,7 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
     
     // Diminuer la quantité
     function decreaseQuantity(e) {
-        const productId = parseInt(e.target.getAttribute("data-id"));
+        const productId = e.target.getAttribute("data-id");
         const item = cart.find(item => item.id === productId);
         
         if (item.quantity > 1) {
@@ -658,15 +541,15 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
     
     // Augmenter la quantité
     function increaseQuantity(e) {
-        const productId = parseInt(e.target.getAttribute("data-id"));
-        const item = cart.find(item => item.id === productId);
+        const productId = e.target.getAttribute("data-id");
+        const item = cart.find(item => item._id === productId);
         item.quantity += 1;
         updateCart();
     }
     
     // Supprimer un article avec confirmation
     function removeItem(e) {
-        const productId = parseInt(e.target.getAttribute("data-id"));
+        const productId = e.target.getAttribute("data-id");
         const item = cart.find(item => item.id === productId);
         
         if (confirm(`Êtes-vous sûr de vouloir supprimer "${item.title}" du panier ?`)) {
@@ -814,11 +697,11 @@ fetch("https://app.nocodb.com/api/v2/tables/moglpcewom1mcvs/records", {
         });
     });
     
-    // Initialiser
+    // Initialiser - Fetch products first, then initialize other components
     initHeroSlideshow();
     initAdmin();
     initFilters();
-    displayProducts();
-    updateCart();
+    
+    // Fetch products from API and initialize the page
+    fetchProducts();
 });
-

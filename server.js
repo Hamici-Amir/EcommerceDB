@@ -39,30 +39,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Route to render the add product page
-app.get('/add-product', (req, res) => {
-  res.render('add-product');
-});
 
-// Route to render the add category page
-app.get('/add-category', (req, res) => {
-  res.render('add-category');
-});
 
-// Route to render the manage products page
-app.get('/manage-products', (req, res) => {
-  res.render('manage-products');
-});
 
-// Route to render the manage categories page
-app.get('/manage-categories', (req, res) => {
-  res.render('manage-categories');
-});
 
-// Route to render the dashboard page
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
-});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
